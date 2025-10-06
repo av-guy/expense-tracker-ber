@@ -8,7 +8,7 @@ from datetime import datetime
 import pandas as pd
 
 from kink import di
-from typer import Typer, Option
+from typer import Option
 from rich import print as rich_print
 from rich.table import Table
 from sqlalchemy.orm import Session
