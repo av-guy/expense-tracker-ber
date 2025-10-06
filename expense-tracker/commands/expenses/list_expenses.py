@@ -66,7 +66,7 @@ def list_user_expenses(
 
     with db_session() as db:
         if not isinstance(db, Session):
-            rich_print("[red]Invalid database session[/red]")
+            rich_print("\n[red]Invalid database session[/red]\n")
             return
 
         query = db.query(Expense)
@@ -77,9 +77,7 @@ def list_user_expenses(
         expenses = query.order_by(Expense.date.desc()).all()
 
         if not expenses:
-            rich_print("")
-            rich_print("[yellow]No expenses found[/yellow]")
-            rich_print("")
+            rich_print("\n[yellow]No expenses found[/yellow]\n")
             return
 
         if export:
@@ -88,9 +86,7 @@ def list_user_expenses(
             try:
                 export_dir.mkdir(parents=True, exist_ok=True)
             except FileNotFoundError as exc:
-                rich_print("")
-                rich_print(f"[red]{exc}[/red]")
-                rich_print("")
+                rich_print(f"\n[red]{exc}[/red]\n")
                 return
 
             if filename:
@@ -114,11 +110,7 @@ def list_user_expenses(
             )
 
             df.to_csv(export_path, index=False)
-
-            rich_print("")
-            rich_print(f"[green]Exported to {export_path.resolve()}[/green]")
-            rich_print("")
-
+            rich_print(f"\n[green]Exported to {export_path.resolve()}[/green]\n")
             return
 
         table = Table(title="Expenses", show_lines=True)
