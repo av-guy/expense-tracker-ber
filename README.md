@@ -33,5 +33,5 @@ pip install -r requirements.txt
 Show available commands and options:
 
 ```bash
-python -m expense_tracker --help
+python -m expense-tracker --help
 ```
