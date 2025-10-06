@@ -102,7 +102,7 @@ def add_expense(
 
     with db_session() as db:
         if not isinstance(db, Session):
-            rich_print("[red]Invalid database session[/red]")
+            rich_print("\n[red]Invalid database session[/red]\n")
             return
 
         expense = Expense(
@@ -115,7 +115,7 @@ def add_expense(
 
         db.add(expense)
         db.commit()
-        rich_print(f"[green]Expense added with ID {expense.id}[/green]")
+        rich_print(f"\n[green]Expense added with ID {expense.id}[/green]\n")
 
 
 @app.command("bulk")
