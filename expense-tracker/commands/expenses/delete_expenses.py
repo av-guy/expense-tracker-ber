@@ -25,22 +25,16 @@ def delete_expense(expense_id: EXPENSE_ID):
 
     with db_session() as db:
         if not isinstance(db, Session):
-            rich_print("")
-            rich_print("[red]Invalid database session[/red]")
-            rich_print("")
+            rich_print("\n[red]Invalid database session[/red]\n")
             return
 
         expense = db.get(Expense, expense_id)
 
         if not expense:
-            rich_print("")
-            rich_print(f"[red]Expense {expense_id} not found[/red]")
-            rich_print("")
+            rich_print(f"\n[red]Expense {expense_id} not found[/red]\n")
             return
 
         db.delete(expense)
         db.commit()
 
-        rich_print("")
-        rich_print(f"[green]Expense {expense_id} deleted[/green]")
-        rich_print("")
+        rich_print(f"\n[green]Expense {expense_id} deleted[/green]\n")
