@@ -126,15 +126,11 @@ def bulk_import(file: BULK_FILE_PATH):
 
     with db_session() as db:
         if not isinstance(db, Session):
-            rich_print("")
-            rich_print("[red]Invalid database session[/red]")
-            rich_print("")
+            rich_print("\n[red]Invalid database session[/red]\n")
             return
 
         added_count = _import_expenses_from_csv(db, file)
 
         if added_count:
-            rich_print("")
             rich_print(
-                f"[green]{added_count} expenses added from {file.name}[/green]")
-            rich_print("")
+                f"\n[green]{added_count} expenses added from {file.name}[/green]\n")
