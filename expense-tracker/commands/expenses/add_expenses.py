@@ -47,17 +47,13 @@ BULK_FILE_PATH = Annotated[
 def _import_expenses_from_csv(db: Session, file: Path) -> int:
     """Import expenses from a CSV file and return the count of rows added."""
     if not file.exists():
-        rich_print("")
-        rich_print(f"[red]File not found: {file}[/red]")
-        rich_print("")
+        rich_print(f"\n[red]File not found: {file}[/red]\n")
         return 0
 
     try:
         df = pd.read_csv(file)
     except Exception as e:
-        rich_print("")
-        rich_print(f"[red]Error reading CSV: {e}[/red]")
-        rich_print("")
+        rich_print(f"\n[red]Error reading CSV: {e}[/red]\n")
         return 0
 
     required_columns = {"description", "amount"}
@@ -65,7 +61,7 @@ def _import_expenses_from_csv(db: Session, file: Path) -> int:
 
     if not required_columns.issubset(lower_columns.keys()):
         rich_print(
-            "[red]CSV must include at least 'description' and 'amount' columns[/red]")
+            "\n[red]CSV must include at least 'description' and 'amount' columns[/red]\n")
         return 0
 
     added_count = 0
@@ -83,7 +79,7 @@ def _import_expenses_from_csv(db: Session, file: Path) -> int:
             db.add(expense)
             added_count += 1
         except Exception as e:
-            rich_print(f"[yellow]Skipping invalid row: {e}[/yellow]")
+            rich_print(f"\n[yellow]Skipping invalid row: {e}[/yellow]\n")
 
     db.commit()
     return added_count
