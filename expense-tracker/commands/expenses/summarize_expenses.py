@@ -8,7 +8,7 @@ from datetime import datetime
 import pandas as pd
 
 from kink import di
-from typer import Option
+from typer import Option, Argument
 from rich import print as rich_print
 from rich.table import Table
 from sqlalchemy.orm import Session
@@ -21,10 +21,10 @@ from .command_router import app
 
 MONTH_NUMBER = Annotated[
     int,
-    Option(
-        "--month",
-        "-m",
-        help="Month number (1–12) for the report."
+    Argument(
+        help="Month number (1–12) for the report.",
+        min=1,
+        max=12
     )
 ]
 
@@ -90,6 +90,7 @@ def summarize_user_expenses(
         query = db.query(func.sum(Expense.amount), func.count())
 
         if category:
+            category = category.lower().capitalize()
             query = query.filter(Expense.category == category)
 
         total, count = 0.0, 0
@@ -135,12 +136,10 @@ def summarize_user_expenses(
             rich_print("")
             return
 
-        rich_print("")
         rich_print("\n[bold cyan]Expense Summary[/bold cyan]")
         rich_print(f"Category: [magenta]{category or 'All'}[/magenta]")
         rich_print(f"Total Expenses: [green]${total:.2f}[/green]")
         rich_print(f"Number of Entries: [magenta]{count}[/magenta]\n")
-        rich_print("")
 
 
 @app.command("month")
@@ -157,9 +156,7 @@ def monthly_summary(
 
     with db_session() as db:
         if not isinstance(db, Session):
-            rich_print("")
-            rich_print("[red]Invalid database session[/red]")
-            rich_print("")
+            rich_print("\n[red]Invalid database session[/red]\n")
             return
 
         expenses = (
@@ -185,7 +182,7 @@ def monthly_summary(
             else:
                 timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
                 export_path = export_dir / \
-                    f"expenses_{year}_{month:02d}_{timestamp}.csv"
+                    f"monthly_{year}_{month:02d}_{timestamp}.csv"
 
             df = pd.DataFrame(
                 [
@@ -203,10 +200,8 @@ def monthly_summary(
                 "ID": "", "Description": "Total", "Amount": total}
             df.to_csv(export_path, index=False)
 
-            rich_print("")
             rich_print(
-                f"[green]Monthly report exported to {export_path.resolve()}[/green]")
-            rich_print("")
+                f"\n[green]Monthly report exported to {export_path.resolve()}[/green]\n")
             return
 
         table = Table(
