@@ -1,6 +1,7 @@
 # Expense Tracker CLI
 
-A simple command-line tool that manages expenses, assisting you with your finances in the terminal.
+This is a command-line interface (CLI) utility designed to help you track, list, edit, and summarize
+your expenses for budget management.
 
 ---
 
