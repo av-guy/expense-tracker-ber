@@ -82,9 +82,7 @@ def summarize_user_expenses(
 
     with db_session() as db:
         if not isinstance(db, Session):
-            rich_print("")
-            rich_print("[red]Invalid database session[/red]")
-            rich_print("")
+            rich_print("\n[red]Invalid database session[/red]\n")
             return
 
         query = db.query(func.sum(Expense.amount), func.count())
@@ -105,9 +103,7 @@ def summarize_user_expenses(
             try:
                 export_dir.mkdir(parents=True, exist_ok=True)
             except FileNotFoundError as exc:
-                rich_print("")
-                rich_print(f"[red]{exc}[/red]")
-                rich_print("")
+                rich_print(f"\n[red]{exc}[/red]\n")
                 return
 
             if filename:
@@ -129,11 +125,9 @@ def summarize_user_expenses(
 
             df.to_csv(export_path, index=False)
 
-            rich_print("")
             rich_print(
-                f"[green]Summary exported to {export_path.resolve()}[/green]"
+                f"\n[green]Summary exported to {export_path.resolve()}[/green]\n"
             )
-            rich_print("")
             return
 
         rich_print("\n[bold cyan]Expense Summary[/bold cyan]")
