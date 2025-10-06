@@ -7,7 +7,7 @@ your expenses for budget management.
 
 ## Installation
 
-Clone the repository and create a virtual environment:
+Clone the repository:
 
 ```bash
 git clone https://github.com/av-guy/typer-expense-tracker.git
