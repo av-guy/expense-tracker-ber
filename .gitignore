@@ -9,10 +9,12 @@ __pycache__/
 venv/
 .env/
 .venv/
-.examples/
-*.ps1
+
+*/**/db
+dist/
 
 .vscode/
 .idea/
+.examples/
 
-*.pkl
+.coverage
