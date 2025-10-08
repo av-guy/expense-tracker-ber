@@ -117,7 +117,7 @@ class PandasCSVService:
 
         if not required_columns.issubset(lower_columns.keys()):
             raise ValueError(
-                f"File must contain required columns: {",".join(required_columns)}")
+                f"File must contain required columns: {','.join(required_columns)}")
 
         for _, row in df.iterrows():
             expense = Expense(
