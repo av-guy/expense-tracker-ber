@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "expense-tracker"
 version = "0.0.1"
-description = "CLI for managing tasks"
+description = "CLI for managing expenses"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -24,7 +24,7 @@ classifiers = [
 ]
 
 [project.scripts]
-task-manager = "task_manager.__main__:app"
+expense-tracker = "expense_tracker.__main__:app"
 
 [project.optional-dependencies]
 dev = [
