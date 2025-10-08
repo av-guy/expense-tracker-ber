@@ -17,6 +17,7 @@ def initialize():
     di["db_url"] = getenv("DATABASE_URL", DEFAULT_DB_URL)
 
     from .database import get_db, BASE, ENGINE
+    from .models import Expense
     BASE.metadata.create_all(bind=ENGINE)
     di["db_session_context"] = get_db
 
