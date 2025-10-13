@@ -14,7 +14,7 @@ authors = [
 ]
 dependencies = [
   "typer==0.19.2",
-  "SQLAlchemy==2.0.43",
+  "SQLAlchemy==2.0.44",
   "kink==0.8.1",
   "pandas"
 ]
