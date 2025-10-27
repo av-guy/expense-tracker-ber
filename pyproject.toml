@@ -13,7 +13,7 @@ authors = [
   { name="av-guy", email="28807350+av-guy@users.noreply.github.com" },
 ]
 dependencies = [
-  "typer==0.19.2",
+  "typer==0.20.0",
   "SQLAlchemy==2.0.43",
   "kink==0.8.1",
   "pandas"
